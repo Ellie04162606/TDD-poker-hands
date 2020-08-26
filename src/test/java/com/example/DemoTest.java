@@ -14,7 +14,6 @@ public class DemoTest {
   public static void setUp() {
     demo = new Demo();
   }
-
   @Test
   public void test01() {
     String result = demo.run();
@@ -27,7 +26,7 @@ public class DemoTest {
     String input = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
 
     //when
-    String result = Demo.playGame(input);
+    String result = demo.playGame(input);
 
     //then
     assertEquals("White wins. - with high card: Ace", result);

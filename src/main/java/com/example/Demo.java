@@ -36,8 +36,22 @@ public class Demo {
     return String.valueOf(key);
   }
 
-  public String playGame(String input) {
+  private String getMaxKey(List<Integer> black,List<Integer> white){
+    int highCart = -1;
+    String res = "Tie";
+    for (int i = 1; i < black.size(); i++) {
+      if (black.get(black.size() - i) > white.get(black.size() - i)) {
+        highCart = black.get(black.size() - i);
+        return "Black" + " wins. - with high card: " + transToString(highCart);
+      } else if (black.get(black.size() - i) < white.get(black.size() - i)) {
+        highCart = white.get(white.size() - i);
+        return  "White"+ " wins. - with high card: " + transToString(highCart);
+      }
+    }
+    return res;
+  }
 
+  public String playGame(String input) {
     String[] blackInput = input.substring(7, 22).split(" ");
     String[] whiteInput = input.substring(30).split(" ");
     Map<Integer, List<String>> blackMap =transToMap(blackInput);
@@ -46,26 +60,31 @@ public class Demo {
     List<Integer> black = new ArrayList<Integer>(set);
     Set<Integer> set2 = whiteMap.keySet();
     List<Integer> white = new ArrayList<Integer>(set2);
-    String res = "equal";
-    int highCart = -1;
-    for (int i = 1; i < black.size(); i++) {
-      if (black.get(black.size() - i) > white.get(black.size() - i)) {
-        highCart = black.get(black.size() - i);
-        res = "Black";
-        break;
-      } else if (black.get(black.size() - i) < white.get(black.size() - i)) {
-        highCart = white.get(white.size() - i);
-        res = "White";
-        break;
+    if(black.size()==white.size()){
+      return getMaxKey(black,white);
+    }else if(black.size()-white.size()==1){
+      for(Integer i:set2 ){
+        if(whiteMap.get(i).size()==2){
+          return "White" + " wins. - with pair of " + transToString(i);
+        }
+      }
+    }else{
+      for(Integer i:set2 ){
+        if(whiteMap.get(i).size()==2){
+          return "Black" + " wins. - with pair of " + transToString(i);
+        }
       }
     }
-    return res + " wins. - with high card: " + transToString(highCart);
+    return "Tie";
   }
 
   private Map transToMap(String[] input) {
     Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
     for (int i = 0; i < input.length; i++) {
       List<String> value = new ArrayList<String>();
+      if(map.containsKey((transToInt(input[i].substring(0, 1))))){
+        value=map.get(transToInt(input[i].substring(0, 1)));
+      }
       value.add(input[i].substring(1));
       map.put(transToInt(input[i].substring(0, 1)), value);
     }

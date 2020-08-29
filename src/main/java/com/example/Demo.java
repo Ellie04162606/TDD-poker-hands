@@ -210,13 +210,28 @@ public class Demo {
     if (rank == 4) {
       return " wins. - with Three " + transToString(maxLengthNumber(map, 3));
     }
-    if(rank==5){
+    if (rank == 5) {
       return " wins. - with Straight";
     }
-    if (rank==6){
+    if (rank == 6) {
       return " wins. - with Flush";
     }
+    if (rank == 7) {
+      return " wins. - with full house: " + getFullHouse(map);
+    }
     return "";
+  }
+
+  private String getFullHouse(Map<Integer, List<String>> map) {
+    int maxNumber = 0, minNumber = 0;
+    for (Integer i : map.keySet()) {
+      if (map.get(i).size() == 3) {
+        maxNumber=i;
+      }else {
+        minNumber=i;
+      }
+    }
+    return maxNumber+" over "+minNumber;
   }
 
   private int maxLengthNumber(Map<Integer, List<String>> map, int length) {

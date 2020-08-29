@@ -181,14 +181,6 @@ public class Demo {
     } else {
       return "White" + getReason(rankOfWhite, whiteMap);
     }
-
-//    if (black.size() == white.size()) {
-//      return whenLengthEqual(blackMap, whiteMap);
-//    }
-//    if (white.size() == 5 && black.size() > 2 && isStraight(white)) {
-//      return "White wins. - with Straight";
-//    }
-//    return black.size() - white.size() > 0 ? describeOfPair(whiteMap, "White") : describeOfPair(blackMap, "Black");
   }
 
   private String getReason(int rank, Map<Integer, List<String>> map) {

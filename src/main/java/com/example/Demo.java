@@ -107,6 +107,21 @@ public class Demo {
     return res;
   }
 
+  private String getTwoPairs(Map<Integer, List<String>> map){
+    String res="";
+    int count=0;
+    for (Integer i : map.keySet()) {
+      if (map.get(i).size() ==2) {
+        if(count>0){
+          res+="&";
+        }
+        res+=i;
+        count++;
+      }
+    }
+    return res;
+  }
+
   private String describeOfPair(Map<Integer, List<String>> map, String winner) {
     int maxLength = 0;
     List<Integer> maxNumber = new ArrayList<Integer>();
@@ -196,6 +211,12 @@ public class Demo {
       return blackNumber > whiteNumber ? "Black wins. - with pair of " + blackNumber
           : "White wins. - with pair of " + whiteNumber;
     }
+    if (rank == 3) {
+      int blackNumber = maxLengthNumber(blackMap, 2);
+      int whiteNumber = maxLengthNumber(whiteMap, 2);
+      return blackNumber > whiteNumber ? "Black wins. - with two pairs of " + getTwoPairs(blackMap)
+          : "White wins. - with two pairs of " + getTwoPairs(whiteMap);
+    }
     if (rank == 4) {
       int blackNumber = maxLengthNumber(blackMap, 3);
       int whiteNumber = maxLengthNumber(whiteMap, 3);
@@ -255,12 +276,13 @@ public class Demo {
   }
 
   private int maxLengthNumber(Map<Integer, List<String>> map, int length) {
+    int maxNumber=-1;
     for (Integer i : map.keySet()) {
       if (map.get(i).size() == length) {
-        return i;
+        maxNumber=i;
       }
     }
-    return -1;
+    return maxNumber;
   }
 
   private Map transToMap(String[] input) {

@@ -132,4 +132,16 @@ public class DemoTest {
     assertEquals("Black wins. - with four of a kind", result);
   }
 
+  @Test
+  public void should_return_white_wins_when_play_game_given_black_3C_3H_3H_3D_KD_white_4D_5D_6D_7D_8D(){
+    //given
+    String input = "Black: 3C 3H 3H 3D KD  White: 4D 5D 6D 7D 8D";
+
+    //when
+    String result = demo.playGame(input);
+
+    //then
+    assertEquals("White wins. - with four of a kind", result);
+  }
+
 }

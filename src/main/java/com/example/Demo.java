@@ -211,6 +211,9 @@ public class Demo {
     if (rank == 7) {
       return " wins. - with full house: " + getFullHouse(map);
     }
+    if (rank == 8) {
+      return " wins. - with four of a kind" ;
+    }
     return "";
   }
 

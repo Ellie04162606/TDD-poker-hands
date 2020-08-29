@@ -141,7 +141,7 @@ public class DemoTest {
     String result = demo.playGame(input);
 
     //then
-    assertEquals("White wins. - with four of a kind", result);
+    assertEquals("White wins. - with straight flush", result);
   }
 
 }

@@ -32,14 +32,14 @@ public class Demo {
     if (keys.size() == 2 && maxLengthOfValue == 4) {
       return 8;
     }
+    if (isStraight(keys) && isFlush(map)) {
+      return 9;
+    }
     if (isStraight(keys)) {
       return 5;
     }
     if (isFlush(map)) {
       return 6;
-    }
-    if (isStraight(keys) && isFlush(map)) {
-      return 9;
     }
     return 1;
   }
@@ -213,6 +213,9 @@ public class Demo {
     }
     if (rank == 8) {
       return " wins. - with four of a kind" ;
+    }
+    if (rank == 9) {
+      return " wins. - with straight flush" ;
     }
     return "";
   }

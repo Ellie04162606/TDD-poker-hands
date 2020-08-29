@@ -44,7 +44,6 @@ public class Demo {
     return 1;
   }
 
-
   private boolean isFlush(Map<Integer, List<String>> map) {
     List<List<String>> list = new ArrayList<List<String>>(map.values());
     String init = list.get(0).get(0);
@@ -178,9 +177,10 @@ public class Demo {
     int rankOfWhite = getRank(whiteMap);
     if (rankOfBlack > rankOfWhite) {
       return "Black" + getReason(rankOfBlack, blackMap);
-    } else {
+    } else if(rankOfBlack<rankOfWhite){
       return "White" + getReason(rankOfWhite, whiteMap);
     }
+    return getMaxKey(black, white);
   }
 
   private String getReason(int rank, Map<Integer, List<String>> map) {
@@ -212,10 +212,10 @@ public class Demo {
       return " wins. - with full house: " + getFullHouse(map);
     }
     if (rank == 8) {
-      return " wins. - with four of a kind" ;
+      return " wins. - with four of a kind";
     }
     if (rank == 9) {
-      return " wins. - with straight flush" ;
+      return " wins. - with straight flush";
     }
     return "";
   }
@@ -224,12 +224,12 @@ public class Demo {
     int maxNumber = 0, minNumber = 0;
     for (Integer i : map.keySet()) {
       if (map.get(i).size() == 3) {
-        maxNumber=i;
-      }else {
-        minNumber=i;
+        maxNumber = i;
+      } else {
+        minNumber = i;
       }
     }
-    return maxNumber+" over "+minNumber;
+    return maxNumber + " over " + minNumber;
   }
 
   private int maxLengthNumber(Map<Integer, List<String>> map, int length) {

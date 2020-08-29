@@ -196,6 +196,12 @@ public class Demo {
       return blackNumber > whiteNumber ? "Black wins. - with pair of " + blackNumber
           : "White wins. - with pair of " + whiteNumber;
     }
+    if (rank == 4) {
+      int blackNumber = maxLengthNumber(blackMap, 3);
+      int whiteNumber = maxLengthNumber(whiteMap, 3);
+      return blackNumber > whiteNumber ? "Black wins. - with Three " + blackNumber
+          : "White wins. - with Three " + whiteNumber;
+    }
     return null;
   }
 

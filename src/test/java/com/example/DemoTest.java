@@ -182,18 +182,6 @@ public class DemoTest {
   }
 
   @Test
-  public void should_return_white_wins_when_play_game_given_black_3D_3D_KD_KD_KD_white_3C_3H_5S_3C_5H() {
-    //given
-    String input = "Black: 3D 4D 6D 5D KD  White: 3C 3H 5S 3C 5H";
-
-    //when
-    String result = demo.playGame(input);
-
-    //then
-    assertEquals("Black wins. - with full house: King over 3", result);
-  }
-
-  @Test
   public void should_return_white_wins_when_play_game_given_black_3C_3H_3H_3D_KD_white_3C_3H_5S_3C_5H() {
     //given
     String input = "Black: 3C 3H 3H 3D KD  White: 3C 3H 5S 3C 5H";
@@ -203,6 +191,18 @@ public class DemoTest {
 
     //then
     assertEquals("Black wins. - with four of a kind", result);
+  }
+
+  @Test
+  public void should_return_white_wins_when_play_game_given_black_3C_3H_3H_3D_KD_white_3C_5H_5S_5C_5H() {
+    //given
+    String input = "Black: 3C 3H 3H 3D KD  White: 3C 5H 5S 5C 5H";
+
+    //when
+    String result = demo.playGame(input);
+
+    //then
+    assertEquals("White wins. - with four of a kind", result);
   }
 
   @Test

@@ -170,17 +170,33 @@ public class Demo {
     Map<Integer, List<String>> whiteMap = transToMap(whiteInput);
     Set<Integer> set = blackMap.keySet();
     Set<Integer> set2 = whiteMap.keySet();
-    List<Integer> black = new ArrayList<Integer>(set);
-    List<Integer> white = new ArrayList<Integer>(set2);
 
     int rankOfBlack = getRank(blackMap);
     int rankOfWhite = getRank(whiteMap);
     if (rankOfBlack > rankOfWhite) {
       return "Black" + getReason(rankOfBlack, blackMap);
-    } else if(rankOfBlack<rankOfWhite){
+    } else if (rankOfBlack < rankOfWhite) {
       return "White" + getReason(rankOfWhite, whiteMap);
     }
-    return getMaxKey(black, white);
+    return getReasonOfSameRank(rankOfBlack, blackMap, whiteMap);
+  }
+
+  private String getReasonOfSameRank(int rank, Map<Integer, List<String>> blackMap,
+      Map<Integer, List<String>> whiteMap) {
+    Set<Integer> set = blackMap.keySet();
+    Set<Integer> set2 = whiteMap.keySet();
+    List<Integer> black = new ArrayList<Integer>(set);
+    List<Integer> white = new ArrayList<Integer>(set2);
+    if (rank == 1) {
+      return getMaxKey(black, white);
+    }
+    if (rank == 2) {
+      int blackNumber = maxLengthNumber(blackMap, 2);
+      int whiteNumber = maxLengthNumber(whiteMap, 2);
+      return blackNumber > whiteNumber ? "Black wins. - with pair of " + blackNumber
+          : "White wins. - with pair of " + whiteNumber;
+    }
+    return null;
   }
 
   private String getReason(int rank, Map<Integer, List<String>> map) {

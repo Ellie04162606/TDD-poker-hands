@@ -213,6 +213,9 @@ public class Demo {
     if(rank==5){
       return " wins. - with Straight";
     }
+    if (rank==6){
+      return " wins. - with Flush";
+    }
     return "";
   }
 

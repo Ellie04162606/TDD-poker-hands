@@ -216,4 +216,16 @@ public class DemoTest {
     //then
     assertEquals("White wins. - with straight flush", result);
   }
+
+  @Test
+  public void should_return_white_wins_when_play_game_given_black_9D_TD_JD_QD_KD_white_4D_5D_6D_7D_8D() {
+    //given
+    String input = "Black: 9D TD JD QD KD  White: 4D 5D 6D 7D 8D";
+
+    //when
+    String result = demo.playGame(input);
+
+    //then
+    assertEquals("Black wins. - with straight flush", result);
+  }
 }

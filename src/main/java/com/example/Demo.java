@@ -132,12 +132,9 @@ public class Demo {
     return getReasonOfSameRank(rankOfBlack, blackMap, whiteMap);
   }
 
-  private String getReasonOfSameRank(int rank, Map<Integer, List<String>> blackMap,
-      Map<Integer, List<String>> whiteMap) {
-    Set<Integer> set = blackMap.keySet();
-    Set<Integer> set2 = whiteMap.keySet();
-    List<Integer> black = new ArrayList<Integer>(set);
-    List<Integer> white = new ArrayList<Integer>(set2);
+  private String getReasonOfSameRank(int rank, Map<Integer, List<String>> blackMap, Map<Integer, List<String>> whiteMap) {
+    List<Integer> black = new ArrayList<Integer>(blackMap.keySet());
+    List<Integer> white = new ArrayList<Integer>(whiteMap.keySet());
     if (rank == 1) {
       return getMaxKey(black, white) ? "Black" + " wins. - with high card: " + transToString(black.get(black.size() - 1)) :
           "White" + " wins. - with high card: " + transToString(white.get(white.size() - 1));
@@ -169,6 +166,16 @@ public class Demo {
       return getMaxKey(black, white) ? "Black wins. - with Flush and max number is: " + transToString(
           black.get(black.size() - 1)) :
           "White wins. - with Flush and max number is: " + transToString(white.get(white.size() - 1));
+    }
+    if (rank ==8){
+      int blackNumber = maxLengthNumber(blackMap, 4);
+      int whiteNumber = maxLengthNumber(whiteMap, 4);
+      return blackNumber > whiteNumber ? "Black wins. - with four of a kind"
+          : "White wins. - with four of a kind";
+    }
+    if (rank == 9) {
+      return getMaxKey(black, white) ? "Black wins. - with straight flush":
+          "White wins. - with straight flush";
     }
     return null;
   }

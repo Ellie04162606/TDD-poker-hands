@@ -53,18 +53,20 @@ public class Demo {
 
   private String describeOfPair(Map<Integer, List<String>> map, String winner) {
     int maxLength = 0;
-    int maxNumber = 0;
+    List<Integer> maxNumber = new ArrayList<Integer>();
     for (Integer i : map.keySet()) {
-      if (map.get(i).size() > maxLength) {
+      if (!(map.get(i).size() < maxLength)) {
         maxLength = map.get(i).size();
-        maxNumber = i;
+        maxNumber.add(i);
       }
     }
     if (maxLength == 2) {
-      return winner + " wins. - with pair of " + transToString(maxNumber);
+      if(map.size()==4)
+        return winner + " wins. - with pair of " + transToString(maxNumber.get(0));
+      return winner + " wins. - with two pairs of " + transToString(maxNumber.get(0))+"&"+transToString(maxNumber.get(1));
     }
     if (maxLength == 3) {
-      return winner + " wins. - with Three " + transToString(maxNumber);
+      return winner + " wins. - with Three " + transToString(maxNumber.get(0));
     }
     return "Tie";
   }

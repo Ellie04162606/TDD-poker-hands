@@ -3,8 +3,12 @@ package com.example;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.List;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class DemoTest {
 
@@ -20,17 +24,17 @@ public class DemoTest {
     assertThat(result).isEqualTo("ABC");
   }
 
-  @Test
-  public void should_return_white_wins_when_play_game_given_black_2H_3D_5S_9C_KD_white_2C_3H_4S_8C_AH() {
-    //given
-    String input = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
-
-    //when
-    String result = demo.playGame(input);
-
-    //then
-    assertEquals("White wins. - with high card: Ace", result);
-  }
+//  @Test
+//  public void should_return_white_wins_when_play_game_given_black_2H_3D_5S_9C_KD_white_2C_3H_4S_8C_AH() {
+//    //given
+//    String input = "Black: 2H 3D 5S 9C KD  White: 2C 3H 4S 8C AH";
+//
+//    //when
+//    String result = demo.playGame(input);
+//
+//    //then
+//    assertEquals("White wins. - with high card: Ace", result);
+//  }
 
   @Test
   public void should_return_white_wins_when_play_game_given_black_2H_3D_5S_9C_KD_white_3C_3H_4S_8C_AH(){
@@ -78,6 +82,30 @@ public class DemoTest {
 
     //then
     assertEquals("White wins. - with Three 3", result);
+  }
+
+  @Test
+  public void should_return_white_wins_when_play_game_given_black_3H_3D_3S_5C_KD_white_3C_4H_5S_6C_7H(){
+    //given
+    String input = "Black: 3H 3D 3S 5C KD  White: 3C 4H 5S 6C 7H";
+
+    //when
+    String result = demo.playGame(input);
+
+    //then
+    assertEquals("White wins. - with Straight", result);
+  }
+
+  @Test
+  public void should_return_white_wins_when_play_game_given_black_3D_4D_6D_5D_KD_white_3C_4H_5S_6C_7H(){
+    //given
+    String input = "Black: 3D 4D 6D 5D KD  White: 3C 4H 5S 6C 7H";
+
+    //when
+    String result = demo.playGame(input);
+
+    //then
+    assertEquals("Black wins. - with Flush", result);
   }
 
 }

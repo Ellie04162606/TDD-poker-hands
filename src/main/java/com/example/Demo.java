@@ -8,6 +8,63 @@ import java.util.Set;
 
 public class Demo {
 
+  private int getRank(Map<Integer, List<String>> map) {
+    Set<Integer> key = map.keySet();
+    List<Integer> keys = new ArrayList<Integer>(key);
+    int maxLengthOfValue = 0;
+    for (Integer i : map.keySet()) {
+      if (map.get(i).size() > maxLengthOfValue) {
+        maxLengthOfValue = map.get(i).size();
+      }
+    }
+    if (keys.size() == 4 && maxLengthOfValue == 2) {
+      return 2;
+    }
+    if (keys.size() == 3 && maxLengthOfValue == 2) {
+      return 3;
+    }
+    if (keys.size() == 3 && maxLengthOfValue == 3) {
+      return 4;
+    }
+    if (keys.size() == 2 && maxLengthOfValue == 3) {
+      return 7;
+    }
+    if (keys.size() == 2 && maxLengthOfValue == 4) {
+      return 8;
+    }
+    if (isStraight(keys)) {
+      return 5;
+    }
+    if (isFlush(map)) {
+      return 6;
+    }
+    if (isStraight(keys) && isFlush(map)) {
+      return 9;
+    }
+    return 1;
+  }
+
+
+  private boolean isFlush(Map<Integer, List<String>> map) {
+    List<List<String>> list = new ArrayList<List<String>>(map.values());
+    String init = list.get(0).get(0);
+    for (int i = 1; i < list.size(); i++) {
+      if (!init.equals(list.get(i).get(0))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private boolean isStraight(List<Integer> list) {
+    for (int i = 0; i < list.size() - 1; i++) {
+      if (list.get(i) + 1 != list.get(i + 1)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   private int transToInt(String key) {
     if ("J".equals(key)) {
       return 11;
@@ -107,6 +164,7 @@ public class Demo {
   }
 
   public String playGame(String input) {
+
     String[] blackInput = input.substring(7, 22).split(" ");
     String[] whiteInput = input.substring(30).split(" ");
     Map<Integer, List<String>> blackMap = transToMap(blackInput);
@@ -115,10 +173,56 @@ public class Demo {
     Set<Integer> set2 = whiteMap.keySet();
     List<Integer> black = new ArrayList<Integer>(set);
     List<Integer> white = new ArrayList<Integer>(set2);
-    if (black.size() == white.size()) {
-      return whenLengthEqual(blackMap, whiteMap);
+
+    int rankOfBlack = getRank(blackMap);
+    int rankOfWhite = getRank(whiteMap);
+    if (rankOfBlack > rankOfWhite) {
+      return "Black" + getReason(rankOfBlack, blackMap);
+    } else {
+      return "White" + getReason(rankOfWhite, whiteMap);
     }
-    return black.size() - white.size() > 0 ? describeOfPair(whiteMap, "White") : describeOfPair(blackMap, "Black");
+
+//    if (black.size() == white.size()) {
+//      return whenLengthEqual(blackMap, whiteMap);
+//    }
+//    if (white.size() == 5 && black.size() > 2 && isStraight(white)) {
+//      return "White wins. - with Straight";
+//    }
+//    return black.size() - white.size() > 0 ? describeOfPair(whiteMap, "White") : describeOfPair(blackMap, "Black");
+  }
+
+  private String getReason(int rank, Map<Integer, List<String>> map) {
+    if (rank == 2) {
+      return " wins. - with pair of " + transToString(maxLengthNumber(map, 2));
+    }
+    if (rank == 3) {
+      int maxLength = 0;
+      List<Integer> maxNumber = new ArrayList<Integer>();
+      for (Integer i : map.keySet()) {
+        if (!(map.get(i).size() < maxLength)) {
+          maxLength = map.get(i).size();
+          maxNumber.add(i);
+        }
+      }
+      return " wins. - with two pairs of " + transToString(maxNumber.get(0)) + "&" + transToString(
+          maxNumber.get(1));
+    }
+    if (rank == 4) {
+      return " wins. - with Three " + transToString(maxLengthNumber(map, 3));
+    }
+    if(rank==5){
+      return " wins. - with Straight";
+    }
+    return "";
+  }
+
+  private int maxLengthNumber(Map<Integer, List<String>> map, int length) {
+    for (Integer i : map.keySet()) {
+      if (map.get(i).size() == length) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   private Map transToMap(String[] input) {

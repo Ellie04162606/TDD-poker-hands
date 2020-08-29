@@ -134,6 +134,18 @@ public class DemoTest {
   }
 
   @Test
+  public void should_return_white_wins_when_play_game_given_black_2H_3D_4S_5C_6D_white_3C_4H_5S_6C_7H() {
+    //given
+    String input = "Black: 2H 3D 4S 5C 6D  White: 3C 4H 5S 6C 7H";
+
+    //when
+    String result = demo.playGame(input);
+
+    //then
+    assertEquals("White wins. - with Straight", result);
+  }
+
+  @Test
   public void should_return_white_wins_when_play_game_given_black_3D_4D_6D_5D_KD_white_3C_4H_5S_6C_7H() {
     //given
     String input = "Black: 3D 4D 6D 5D KD  White: 3C 4H 5S 6C 7H";

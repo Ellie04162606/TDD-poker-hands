@@ -92,30 +92,21 @@ public class Demo {
     return String.valueOf(key);
   }
 
-  private String getMaxKey(List<Integer> black, List<Integer> white) {
-    int highCart = -1;
-    String res = "Tie";
-    for (int i = 1; i < black.size(); i++) {
-      if (black.get(black.size() - i) > white.get(black.size() - i)) {
-        highCart = black.get(black.size() - i);
-        return "Black" + " wins. - with high card: " + transToString(highCart);
-      } else if (black.get(black.size() - i) < white.get(black.size() - i)) {
-        highCart = white.get(white.size() - i);
-        return "White" + " wins. - with high card: " + transToString(highCart);
-      }
-    }
-    return res;
+  private boolean getMaxKey(List<Integer> black, List<Integer> white) {
+    int maxOfBlack = black.get(black.size() - 1);
+    int maxOfWhite = white.get(white.size() - 1);
+    return maxOfBlack > maxOfWhite;
   }
 
-  private String getTwoPairs(Map<Integer, List<String>> map){
-    String res="";
-    int count=0;
+  private String getTwoPairs(Map<Integer, List<String>> map) {
+    String res = "";
+    int count = 0;
     for (Integer i : map.keySet()) {
-      if (map.get(i).size() ==2) {
-        if(count>0){
-          res+="&";
+      if (map.get(i).size() == 2) {
+        if (count > 0) {
+          res += "&";
         }
-        res+=i;
+        res += i;
         count++;
       }
     }
@@ -148,7 +139,8 @@ public class Demo {
     List<Integer> black = new ArrayList<Integer>(set);
     List<Integer> white = new ArrayList<Integer>(set2);
     if (rank == 1) {
-      return getMaxKey(black, white);
+      return getMaxKey(black, white) ? "Black" + " wins. - with high card: " + transToString(black.get(black.size() - 1)) :
+          "White" + " wins. - with high card: " + transToString(white.get(white.size() - 1));
     }
     if (rank == 2) {
       int blackNumber = maxLengthNumber(blackMap, 2);
@@ -167,6 +159,16 @@ public class Demo {
       int whiteNumber = maxLengthNumber(whiteMap, 3);
       return blackNumber > whiteNumber ? "Black wins. - with Three " + blackNumber
           : "White wins. - with Three " + whiteNumber;
+    }
+    if (rank == 5) {
+      return getMaxKey(black, white) ? "Black wins. - with Straight and max number is: " + transToString(
+          black.get(black.size() - 1)) :
+          "White wins. - with Straight and max number is: " + transToString(white.get(white.size() - 1));
+    }
+    if (rank == 6) {
+      return getMaxKey(black, white) ? "Black wins. - with Flush and max number is: " + transToString(
+          black.get(black.size() - 1)) :
+          "White wins. - with Flush and max number is: " + transToString(white.get(white.size() - 1));
     }
     return null;
   }
@@ -221,10 +223,10 @@ public class Demo {
   }
 
   private int maxLengthNumber(Map<Integer, List<String>> map, int length) {
-    int maxNumber=-1;
+    int maxNumber = -1;
     for (Integer i : map.keySet()) {
       if (map.get(i).size() == length) {
-        maxNumber=i;
+        maxNumber = i;
       }
     }
     return maxNumber;

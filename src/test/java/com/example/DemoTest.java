@@ -142,7 +142,7 @@ public class DemoTest {
     String result = demo.playGame(input);
 
     //then
-    assertEquals("White wins. - with Straight", result);
+    assertEquals("White wins. - with Straight and max number is: 7", result);
   }
 
   @Test
@@ -155,6 +155,18 @@ public class DemoTest {
 
     //then
     assertEquals("Black wins. - with Flush", result);
+  }
+
+  @Test
+  public void should_return_white_wins_when_play_game_given_black_3D_9D_6D_5D_KD_white_3H_4H_5H_8H_7H() {
+    //given
+    String input = "Black: 3D 9D 6D 5D KD  White: 3H 4H 5H 8H 7H";
+
+    //when
+    String result = demo.playGame(input);
+
+    //then
+    assertEquals("Black wins. - with Flush and max number is: King", result);
   }
 
   @Test
